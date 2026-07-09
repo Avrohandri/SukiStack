@@ -250,7 +250,7 @@ export function drop() {
   if (Math.abs(delta) <= PERFECT_TOL) {
     // ===== PERFECT =====
     combo++;
-    if (combo >= 2) {
+    if (combo >= 1) {
       newSize.x = Math.min(newSize.x + GROW_PERFECT, BASE_SIZE);
       newSize.z = Math.min(newSize.z + GROW_PERFECT, BASE_SIZE);
     }
@@ -288,7 +288,7 @@ export function drop() {
   scene.add(placed);
   stack.push({ mesh: placed, size: newSize, pos: newPos, y });
 
-  const fromScale = Math.abs(delta) <= PERFECT_TOL && combo >= 2
+  const fromScale = Math.abs(delta) <= PERFECT_TOL && combo >= 1
     ? { x: moving.size.x / newSize.x, y: 1.25, z: moving.size.z / newSize.z }
     : { x: 1, y: 1.3, z: 1 };
   placed.scale.set(fromScale.x, fromScale.y, fromScale.z);
