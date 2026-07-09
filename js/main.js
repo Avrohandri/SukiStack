@@ -46,7 +46,9 @@ window.addEventListener('keydown', (e) => {
 // ── Tombol retry ──
 function doReset() {
   markBtnTouch();  // flag pendek cegah ghost-click ke onAction
-  document.getElementById('over-screen').classList.add('hidden');
+  const overEl = document.getElementById('over-screen');
+  overEl.classList.add('hidden');
+  overEl.style.display = 'none';  // langsung hapus dari layout, tanpa nunggu CSS transition
   reset();
   beep(440, 0.1, 'triangle', 0.15);
 }

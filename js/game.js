@@ -381,7 +381,9 @@ function gameOver() {
   document.getElementById('final-score').textContent  = score;
   updateThemeSelector();
   setTimeout(() => {
-    document.getElementById('over-screen').classList.remove('hidden');
+    const el = document.getElementById('over-screen');
+    el.style.display = '';       // pastikan display tidak 'none'
+    el.classList.remove('hidden');
   }, 700);
 }
 
