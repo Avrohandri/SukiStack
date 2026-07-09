@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+<meta name="description" content="MENARA 3D — game stack tower isometrik bergaya game Stack, dibangun dengan Three.js. Tumpuk balok setinggi mungkin!" />
+<title>MENARA 3D — Stack</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div id="bg"></div>
+<canvas id="game"></canvas>
+
+<!-- HUD -->
+<div id="hud">
+  <div id="score">0</div>
+  <div id="combo">PERFECT</div>
+  <div id="best-hud">TERBAIK 0</div>
+</div>
+
+<!-- Slow-motion indicator (Tugas 4) -->
+<div id="slowmo-hud">
+  <div id="slowmo-label">⚡ SLOW MOTION</div>
+  <div id="slowmo-track"><div id="slowmo-bar"></div></div>
+</div>
+
+
+
+<!-- Layar game over -->
+<div class="overlay hidden" id="over-screen">
+  <div id="new-record">🏆 REKOR BARU</div>
+  <div id="final-score">0</div>
+  <div id="final-label">Tinggi Menara</div>
+  <!-- Pilih tema (Tugas 5) -->
+  <div id="theme-selector"></div>
+  <br>
+  <button class="big-btn" id="btn-retry">MAIN LAGI</button>
+</div>
+
+<div class="hint">Tap layar atau tekan SPASI</div>
+
+<!--
+  Three.js r128 — lokal (offline-ready, Tugas 1)
+  Harus dimuat SEBELUM ES module agar window.THREE tersedia.
+-->
+<script src="lib/three.min.js"></script>
+<script type="module" src="js/main.js"></script>
+
+</body>
+</html>
