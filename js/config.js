@@ -10,6 +10,7 @@ export const PERFECT_TOL        = 0.25;
 export const GROW_PERFECT       = 0.5;
 export const SPEED_START        = 0.028;
 export const SPEED_MAX          = 0.075;
+export const SPEED_ACCEL        = 0.0015; // Pertambahan kecepatan per block (lebih lambat)
 
 // Balok bergerak ditampilkan 1 unit lebih besar per sisi (visual saja, tidak ubah logika potong)
 export const MOVING_BLOCK_BONUS = 1;

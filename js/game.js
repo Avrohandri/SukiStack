@@ -5,7 +5,7 @@
 
 import {
   BLOCK_H, BASE_SIZE, MOVE_RANGE, PERFECT_TOL, GROW_PERFECT,
-  SPEED_START, SPEED_MAX, VIEW, CAM_LERP, ZOOM_LERP,
+  SPEED_START, SPEED_MAX, SPEED_ACCEL, VIEW, CAM_LERP, ZOOM_LERP,
   DEBRIS_VY, DEBRIS_VH, DEBRIS_GRAVITY, RING_FADE, RING_GROW,
   SLOWMO_COMBO, SLOWMO_DT, SLOWMO_DURATION,
   THEMES, THEME_KEY,
@@ -195,7 +195,7 @@ function spawnMoving() {
   const top   = topBlock();
   const i     = stack.length;
   const axis  = i % 2 === 1 ? 'x' : 'z';
-  const speed = Math.min(SPEED_START + i * 0.006, SPEED_MAX);
+  const speed = Math.min(SPEED_START + i * SPEED_ACCEL, SPEED_MAX);
   const color = blockColor(i);
 
   // Mesh visual lebih besar MOVING_BLOCK_BONUS per sisi agar lebih mudah dilihat.
