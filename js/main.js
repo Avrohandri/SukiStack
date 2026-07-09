@@ -12,47 +12,58 @@ resize();
 // Load preferensi tema berdasarkan best score
 loadThemePreference(getBest());
 
-// ── Input lock: cegah ghost-touch setelah reset ──
-let inputLocked = false;
-function lockInput(ms = 350) {
-  inputLocked = true;
-  setTimeout(() => { inputLocked = false; }, ms);
+// ── Ghost-touch guard: hanya cegah bounce dari btn-retry (80ms) ──
+// Tidak lock tap player sama sekali — hitbox aktif seluruh layar.
+let recentBtnTouch = false;
+function markBtnTouch() {
+  recentBtnTouch = true;
+  setTimeout(() => { recentBtnTouch = false; }, 80);
 }
 
 function onAction() {
-  if (inputLocked) return;
   drop();
 }
 
+// Mouse click (desktop)
 window.addEventListener('pointerdown', (e) => {
   if (e.target.closest('.big-btn') || e.target.closest('.theme-btn')) return;
   if (e.pointerType === 'touch') return; // handled by touchstart
   onAction();
 });
+
+// Touch tap (mobile / DevTools)
 window.addEventListener('touchstart', (e) => {
   if (e.target.closest('.big-btn') || e.target.closest('.theme-btn')) return;
+  if (recentBtnTouch) return; // abaikan ghost-touch dari btn-retry
   e.preventDefault();
   onAction();
 }, { passive: false });
+
 window.addEventListener('keydown', (e) => {
   if (e.code === 'Space') { e.preventDefault(); onAction(); }
 });
 
+// ── Tombol retry ──
 function doReset() {
+  markBtnTouch();  // flag pendek cegah ghost-click ke onAction
   document.getElementById('over-screen').classList.add('hidden');
-  lockInput(350);   // blokir ghost-touch dari tap tombol retry
   reset();
   beep(440, 0.1, 'triangle', 0.15);
 }
 
-document.getElementById('btn-retry').addEventListener('click', doReset);
+// touchend + preventDefault cegah browser generate click susulan
 document.getElementById('btn-retry').addEventListener('touchend', (e) => {
-  e.preventDefault(); // cegah click event ikut fire
+  e.preventDefault();
+  doReset();
+});
+// fallback untuk mouse desktop
+document.getElementById('btn-retry').addEventListener('click', (e) => {
+  if (e.detail === 0) return; // synthetic click — sudah ditangani touchend
   doReset();
 });
 
 // Mulai loop render + langsung mulai game
 requestAnimationFrame(animate);
-lockInput(200); // blokir tap pertama saat halaman baru load
 reset();
 beep(440, 0.1, 'triangle', 0.15);
+
