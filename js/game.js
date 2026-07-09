@@ -134,6 +134,7 @@ let score = 0, combo = 0;
 let best  = ScoreStore.getBest();
 let state = 'idle';  // idle | playing | over
 let cameraTargetY = 0;
+let camY = 0;
 let roundIdx = 0;  // indeks ronde untuk gilir warna
 
 // Slow-motion state (Tugas 4)
@@ -167,6 +168,9 @@ export function reset() {
   clearScene();
   score = 0; combo = 0;
   cameraTargetY = 0;
+  camY = 0;
+  camera.zoom = 1;
+  camera.updateProjectionMatrix();
   slowmoActive    = false;
   slowmoRemaining = 0;
   roundIdx++;  // ganti palet warna tiap ronde baru
@@ -367,8 +371,6 @@ function spawnRing(x, y, z, sx, sz) {
 // ============================================================
 // GAME OVER
 // ============================================================
-let camY = 0;
-
 function gameOver() {
   state = 'over';
   beep(130, 0.5, 'sawtooth', 0.15);
