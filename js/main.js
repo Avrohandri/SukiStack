@@ -12,8 +12,15 @@ resize();
 // Load preferensi tema berdasarkan best score
 loadThemePreference(getBest());
 
-// Input
+// ── Input lock: cegah ghost-touch setelah reset ──
+let inputLocked = false;
+function lockInput(ms = 350) {
+  inputLocked = true;
+  setTimeout(() => { inputLocked = false; }, ms);
+}
+
 function onAction() {
+  if (inputLocked) return;
   drop();
 }
 
@@ -31,13 +38,21 @@ window.addEventListener('keydown', (e) => {
   if (e.code === 'Space') { e.preventDefault(); onAction(); }
 });
 
-document.getElementById('btn-retry').addEventListener('click', () => {
+function doReset() {
   document.getElementById('over-screen').classList.add('hidden');
+  lockInput(350);   // blokir ghost-touch dari tap tombol retry
   reset();
   beep(440, 0.1, 'triangle', 0.15);
+}
+
+document.getElementById('btn-retry').addEventListener('click', doReset);
+document.getElementById('btn-retry').addEventListener('touchend', (e) => {
+  e.preventDefault(); // cegah click event ikut fire
+  doReset();
 });
 
 // Mulai loop render + langsung mulai game
 requestAnimationFrame(animate);
+lockInput(200); // blokir tap pertama saat halaman baru load
 reset();
 beep(440, 0.1, 'triangle', 0.15);
