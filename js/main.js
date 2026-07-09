@@ -19,8 +19,14 @@ function onAction() {
 
 window.addEventListener('pointerdown', (e) => {
   if (e.target.closest('.big-btn') || e.target.closest('.theme-btn')) return;
+  if (e.pointerType === 'touch') return; // handled by touchstart
   onAction();
 });
+window.addEventListener('touchstart', (e) => {
+  if (e.target.closest('.big-btn') || e.target.closest('.theme-btn')) return;
+  e.preventDefault();
+  onAction();
+}, { passive: false });
 window.addEventListener('keydown', (e) => {
   if (e.code === 'Space') { e.preventDefault(); onAction(); }
 });

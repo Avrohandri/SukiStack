@@ -8,7 +8,7 @@
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
 }
-html, body { height: 100%; overflow: hidden; user-select: none; }
+html, body { height: 100%; overflow: hidden; user-select: none; touch-action: none; }
 body {
   font-family: "Trebuchet MS", "Segoe UI", system-ui, sans-serif;
   color: #fff;
@@ -21,7 +21,7 @@ body {
   transition: background 2s ease;
 }
 
-canvas#game { position: fixed; inset: 0; z-index: 1; display: block; cursor: pointer; }
+canvas#game { position: fixed; inset: 0; z-index: 1; display: block; cursor: pointer; touch-action: none; }
 
 /* ── HUD ── */
 #hud {
